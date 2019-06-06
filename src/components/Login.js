@@ -1,0 +1,52 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { loginUser } from "../actions/authUser";
+
+class Login extends Component {
+  state = {
+    user: ""
+  };
+
+  render() {
+    const { authUser, users } = this.props;
+
+    return (
+      <div>
+        <form onSubmit={event => this.handleLogin(event)}>
+          <select onChange={this.handleSelection}>
+            <option>{authUser ? authUser.name : ""}</option>
+            {users &&
+              Object.keys(users).map(user => (
+                <option key={user} value={user}>
+                  {users[user].name}
+                </option>
+              ))}
+          </select>
+          <button disabled={this.checkDisabled()}>Submit</button>
+        </form>
+      </div>
+    );
+  }
+
+  handleLogin = event => {
+    event.preventDefault();
+    this.props.dispatch(loginUser(this.state.user));
+  };
+
+  handleSelection = event => {
+    this.setState({ user: event.target.value });
+  };
+
+  checkDisabled = () => {
+    return this.state.user === "";
+  };
+}
+
+function mapStateToProps({ authUser, users }) {
+  return {
+    authUser,
+    users
+  };
+}
+
+export default connect(mapStateToProps)(Login);
