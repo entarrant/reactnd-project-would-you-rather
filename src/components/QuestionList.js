@@ -4,15 +4,17 @@ import Question from "./Question";
 
 class QuestionList extends Component {
   render() {
-    const { questions } = this.props;
+    const { type } = this.props;
+    const allQuestions = this.props.questions;
+    const questions = allQuestions ? allQuestions[type] : [];
 
     return (
       <div>
         <ul>
           {questions &&
-            Object.keys(questions).map(question => (
-              <li key={question}>
-                <Question id={question} />
+            questions.map(question => (
+              <li key={question.id}>
+                <Question question={question} />
               </li>
             ))}
         </ul>

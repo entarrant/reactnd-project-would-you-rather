@@ -3,7 +3,14 @@ import { connect } from "react-redux";
 
 class Question extends Component {
   render() {
-    return <div>Question for you sir</div>;
+    const { question } = this.props;
+
+    return (
+      <div>
+        Would you rather... {question.optionOne.text} or{" "}
+        {question.optionTwo.text} ?
+      </div>
+    );
   }
 }
 
