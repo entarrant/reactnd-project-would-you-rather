@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+
 import Question from "./Question";
 
 class QuestionList extends Component {
   render() {
+    if (!this.props.authUser) {
+      return <Redirect to="/login" />;
+    }
+
     const { type } = this.props;
     const allQuestions = this.props.questions;
     const questions = allQuestions ? allQuestions[type] : [];

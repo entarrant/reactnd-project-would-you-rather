@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+
 import { loginUser } from "../actions/authUser";
 
 class Login extends Component {
@@ -9,6 +11,9 @@ class Login extends Component {
 
   render() {
     const { authUser, users } = this.props;
+    if (authUser) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div>
