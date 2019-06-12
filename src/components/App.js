@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import "../App.css";
-import { handleInitialData } from "../actions/shared";
+import { loadUserData } from "../actions/shared";
 import Login from "./Login";
 import QuestionList from "./QuestionList";
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(handleInitialData());
+    this.props.dispatch(loadUserData());
   }
 
   render() {

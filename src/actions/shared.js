@@ -1,17 +1,19 @@
 import { getUsers } from "../actions/users";
 import { _getUsers, _getQuestions } from "../utils/_DATA";
-import { logoutUser } from "./authUser";
 import { getQuestions } from "./questions";
 
-export function handleInitialData() {
+export function loadUserData() {
   return dispatch => {
-    return Promise.all([_getUsers(), _getQuestions()]).then(
-      ([users, questions]) => {
-        dispatch(getUsers(users));
-        dispatch(getQuestions(questions));
-        // User needs to be cleared out on every session
-        dispatch(logoutUser());
-      }
-    );
+    return Promise.all([_getUsers()]).then(([users]) => {
+      dispatch(getUsers(users));
+    });
+  };
+}
+
+export function loadQuestionsData() {
+  return dispatch => {
+    return Promise.all([_getQuestions()]).then(([questions]) => {
+      dispatch(getQuestions(questions));
+    });
   };
 }
