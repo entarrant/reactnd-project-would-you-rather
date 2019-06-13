@@ -6,6 +6,10 @@ import { loadQuestionsData } from "../actions/shared";
 import QuestionList from "./QuestionList";
 
 class Dashboard extends Component {
+  state = {
+    displayList: "unanswered"
+  };
+
   componentDidMount() {
     const { authUser } = this.props;
     if (authUser) {
@@ -13,21 +17,28 @@ class Dashboard extends Component {
     }
   }
 
+  toggleQuestions = () => {
+    if (this.state.displayList === "unanswered") {
+      this.setState({ displayList: "answered" });
+    } else {
+      this.setState({ displayList: "unanswered" });
+    }
+  };
+
   render() {
     if (!this.props.authUser) {
       return <Redirect to="/login" />;
     }
 
+    const { displayList } = this.state;
+    const toggleText = displayList === "unanswered" ? "Answered" : "Unanswered";
+
     return (
       <div>
+        <button onClick={this.toggleQuestions}>{toggleText}</button>
         <span>
-          <h3>Unanswered</h3>
-          <QuestionList type="unanswered" />
-        </span>
-
-        <span>
-          <h3>Answered</h3>
-          <QuestionList type="answered" />
+          <h3>{displayList.toUpperCase()}</h3>
+          <QuestionList type={displayList} />
         </span>
       </div>
     );
