@@ -10,10 +10,10 @@ export function loadUserData() {
   };
 }
 
-export function loadQuestionsData() {
+export function loadQuestionsData(authUser) {
   return dispatch => {
     return Promise.all([_getQuestions()]).then(([questions]) => {
-      dispatch(getQuestions(questions));
+      dispatch(getQuestions(questions, authUser));
     });
   };
 }

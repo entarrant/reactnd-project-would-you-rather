@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-
-import Question from "./Question";
 
 class QuestionList extends Component {
   render() {
-    if (!this.props.authUser) {
-      return <Redirect to="/login" />;
-    }
-
     const { type } = this.props;
     const allQuestions = this.props.questions;
     const questions = allQuestions ? allQuestions[type] : [];
@@ -20,7 +13,8 @@ class QuestionList extends Component {
           {questions &&
             questions.map(question => (
               <li key={question.id}>
-                <Question question={question} />
+                Would you rather... {question.optionOne.text} or{" "}
+                {question.optionTwo.text}?
               </li>
             ))}
         </ul>
