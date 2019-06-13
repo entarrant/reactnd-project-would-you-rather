@@ -9,14 +9,17 @@ class Question extends Component {
     }
 
     const { qid } = this.props.match.params;
-    const question = this.props.questions ? this.props.questions[qid] : null;
+    const question = this.props.questions
+      ? this.props.questions.allQuestions[qid]
+      : null;
 
     return (
       <div>
         {question ? (
           <div>
-            Would you rather... {question.optionOne.text} or{" "}
-            {question.optionTwo.text} ?
+            Would you rather...
+            <div>{question.optionOne.text}</div>
+            <div>{question.optionTwo.text}</div>
           </div>
         ) : (
           <div>Could not find question with id {qid}</div>

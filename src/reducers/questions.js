@@ -21,6 +21,7 @@ export default function questions(state = null, action) {
 
       return {
         ...state,
+        allQuestions: questions,
         unanswered,
         answered
       };
