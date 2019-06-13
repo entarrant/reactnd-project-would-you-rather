@@ -3,11 +3,16 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import { loginUser } from "../actions/authUser";
+import { loadUserData } from "../actions/shared";
 
 class Login extends Component {
   state = {
     user: ""
   };
+
+  componentDidMount() {
+    this.props.dispatch(loadUserData());
+  }
 
   render() {
     const { authUser, users } = this.props;
