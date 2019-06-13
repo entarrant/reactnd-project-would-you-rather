@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class QuestionList extends Component {
   render() {
@@ -13,8 +14,10 @@ class QuestionList extends Component {
           {questions &&
             questions.map(question => (
               <li key={question.id}>
-                Would you rather... {question.optionOne.text} or{" "}
-                {question.optionTwo.text}?
+                <Link to={`/questions/${question.id}`}>
+                  Would you rather... {question.optionOne.text} or{" "}
+                  {question.optionTwo.text}?
+                </Link>
               </li>
             ))}
         </ul>
