@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard";
 import Login from "./Login";
 import Question from "./Question";
 import LoginBar from "./LoginBar";
+import NavBar from "./NavBar";
 
 class App extends Component {
   render() {
@@ -15,7 +16,12 @@ class App extends Component {
       <Router>
         <div>
           <h1>Would You Rather?</h1>
-          {this.props.authUser ? <LoginBar /> : null}
+          {this.props.authUser ? (
+            <div>
+              <LoginBar />
+              <NavBar />
+            </div>
+          ) : null}
           <Route path="/login" component={Login} />
           <Route path="/" exact component={Dashboard} />
           <Route path="/questions/:qid" component={Question} />
