@@ -7,6 +7,7 @@ import "../App.css";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
 import Question from "./Question";
+import LoginBar from "./LoginBar";
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
       <Router>
         <div>
           <h1>Would You Rather?</h1>
+          {this.props.authUser ? <LoginBar /> : null}
           <Route path="/login" component={Login} />
           <Route path="/" exact component={Dashboard} />
           <Route path="/questions/:qid" component={Question} />
@@ -23,4 +25,10 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+function mapStateToProps({ authUser }) {
+  return {
+    authUser
+  };
+}
+
+export default connect(mapStateToProps)(App);
