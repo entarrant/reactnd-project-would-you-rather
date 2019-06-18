@@ -9,6 +9,7 @@ import Login from "./Login";
 import Question from "./Question";
 import LoginBar from "./LoginBar";
 import NavBar from "./NavBar";
+import NewQuestion from "./NewQuestion";
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/" exact component={Dashboard} />
           <Route path="/questions/:qid" component={Question} />
+          <Route path="/add" component={NewQuestion} />
         </div>
       </Router>
     );
