@@ -1,4 +1,4 @@
-import { GET_QUESTIONS } from "../actions/questions";
+import { GET_QUESTIONS, CLEAR_QUESTIONS } from "../actions/questions";
 
 export default function questions(state = null, action) {
   switch (action.type) {
@@ -24,6 +24,12 @@ export default function questions(state = null, action) {
         allQuestions: questions,
         unanswered,
         answered
+      };
+    case CLEAR_QUESTIONS:
+      return {
+        ...state,
+        unanswered: [],
+        answered: []
       };
     default:
       return state;
