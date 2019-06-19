@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { handleAddQuestion } from "../actions/shared";
 
 class NewQuestion extends Component {
   state = {
     optionOne: "",
-    optionTwo: ""
+    optionTwo: "",
+    questionSubmitted: false
   };
 
   handleOptionChange = (event, option) => {
@@ -16,12 +18,17 @@ class NewQuestion extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { optionOne, optionTwo } = this.state;
-    console.log("Submit the new question here! Use the callbacks from _DATA!");
+
+    this.props.dispatch(handleAddQuestion(optionOne, optionTwo));
+    this.setState({ questionSubmitted: true });
   };
 
   render() {
     if (!this.props.authUser) {
       return <Redirect to="/login" />;
+    }
+    if (this.state.questionSubmitted) {
+      return <Redirect to="/" />;
     }
 
     const { optionOne, optionTwo } = this.state;

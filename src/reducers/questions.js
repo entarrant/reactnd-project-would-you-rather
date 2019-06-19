@@ -1,4 +1,8 @@
-import { GET_QUESTIONS, CLEAR_QUESTIONS } from "../actions/questions";
+import {
+  GET_QUESTIONS,
+  CLEAR_QUESTIONS,
+  ADD_QUESTION
+} from "../actions/questions";
 
 export default function questions(state = null, action) {
   switch (action.type) {
@@ -30,6 +34,17 @@ export default function questions(state = null, action) {
         ...state,
         unanswered: [],
         answered: []
+      };
+    case ADD_QUESTION:
+      const { question } = action;
+
+      return {
+        ...state,
+        allQuestions: {
+          ...state.allQuestions,
+          [question.id]: question
+        },
+        unanswered: state.unanswered.concat(question)
       };
     default:
       return state;

@@ -12,7 +12,8 @@ class Dashboard extends Component {
 
   componentDidMount() {
     const { authUser } = this.props;
-    if (authUser) {
+
+    if (authUser && !this.props.questionsLoaded) {
       this.props.dispatch(loadQuestionsData(authUser));
     }
   }
@@ -45,9 +46,10 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps({ authUser }) {
+function mapStateToProps({ authUser, questions }) {
   return {
-    authUser
+    authUser,
+    questionsLoaded: !!questions
   };
 }
 
