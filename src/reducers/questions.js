@@ -30,11 +30,7 @@ export default function questions(state = null, action) {
         answered
       };
     case CLEAR_QUESTIONS:
-      return {
-        ...state,
-        unanswered: [],
-        answered: []
-      };
+      return null;
     case ADD_QUESTION:
       const { question } = action;
 
