@@ -20,26 +20,32 @@ class Question extends Component {
     }
 
     const { qid } = this.props.match.params;
-    const question = this.props.questions
-      ? this.props.questions.allQuestions[qid]
-      : null;
+    const { questions, users } = this.props;
+
+    const question = questions ? questions.allQuestions[qid] : null;
+
+    if (!question) {
+      return <div>Could not find question with id {qid}</div>;
+    }
+
+    const author = users[question.author];
 
     return (
       <div>
-        {question ? (
-          this.renderQuestionContent(question)
-        ) : (
-          <div>Could not find question with id {qid}</div>
-        )}
+        <div>
+          <img src={author.avatarURL} alt={author.name} className="avatar" />
+          {this.renderQuestionContent(question)}
+        </div>
       </div>
     );
   }
 }
 
-function mapStateToProps({ authUser, questions }) {
+function mapStateToProps({ authUser, questions, users }) {
   return {
     authUser,
-    questions
+    questions,
+    users
   };
 }
 

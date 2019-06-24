@@ -6,7 +6,6 @@ class UnansweredQuestion extends Component {
 
     return (
       <div>
-        Would you rather...
         <div>
           <b>{question.optionOne.text}</b>
         </div>
