@@ -9,16 +9,22 @@ export default function users(state = null, action) {
 
   switch (action.type) {
     case GET_USERS:
-      return {
-        ...state,
-        ...action.users
-      };
+      const { users } = action;
+
+      Object.keys(users).forEach(userId => {
+        const currUser = users[userId];
+        users[userId]["points"] =
+          currUser.questions.length + Object.keys(currUser.answers).length;
+      });
+
+      return users;
     case UPDATE_USER_QUESTIONS:
       return {
         ...state,
         [user]: {
           ...state[user],
-          questions: state[user].questions.concat(qid)
+          questions: state[user].questions.concat(qid),
+          points: state[user].points + 1
         }
       };
     case UPDATE_USER_ANSWERS:
@@ -31,7 +37,8 @@ export default function users(state = null, action) {
           answers: {
             ...state[user].answers,
             [qid]: answer
-          }
+          },
+          points: state[user].points + 1
         }
       };
     default:
