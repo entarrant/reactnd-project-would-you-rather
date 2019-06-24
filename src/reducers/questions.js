@@ -17,9 +17,9 @@ export default function questions(state = null, action) {
           question.optionOne.votes.includes(authUser) ||
           question.optionTwo.votes.includes(authUser)
         ) {
-          answered = answered.concat(question);
+          answered = answered.concat(questionId);
         } else {
-          unanswered = unanswered.concat(question);
+          unanswered = unanswered.concat(questionId);
         }
       });
 
@@ -40,7 +40,7 @@ export default function questions(state = null, action) {
           ...state.allQuestions,
           [question.id]: question
         },
-        unanswered: state.unanswered.concat(question)
+        unanswered: state.unanswered.concat(question.id)
       };
     default:
       return state;

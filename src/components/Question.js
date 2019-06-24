@@ -7,7 +7,7 @@ import UnansweredQuestion from "./UnansweredQuestion";
 
 class Question extends Component {
   renderQuestionContent = question => {
-    if (this.props.questions.answered.includes(question)) {
+    if (this.props.questions.answered.includes(question.id)) {
       return <AnsweredQuestion question={question} />;
     } else {
       return <UnansweredQuestion question={question} />;
