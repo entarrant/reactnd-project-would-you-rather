@@ -1,5 +1,6 @@
 export const GET_USERS = "GET_USERS";
 export const UPDATE_USER_QUESTIONS = "UPDATE_USER_QUESTIONS";
+export const UPDATE_USER_ANSWERS = "UPDATE_USER_ANSWERS";
 
 export function getUsers(users) {
   return {
@@ -13,5 +14,14 @@ export function updateUserQuestions(user, qid) {
     type: UPDATE_USER_QUESTIONS,
     user,
     qid
+  };
+}
+
+export function updateUserAnswers(user, qid, answer) {
+  return {
+    type: UPDATE_USER_ANSWERS,
+    user,
+    qid,
+    answer
   };
 }

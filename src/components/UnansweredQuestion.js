@@ -1,20 +1,30 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { handleAnswerQuestion } from "../actions/shared";
 
 class UnansweredQuestion extends Component {
+  handleOptionSelection = answer => {
+    const { dispatch, question } = this.props;
+    dispatch(handleAnswerQuestion(question.id, answer));
+  };
+
   render() {
     const { question } = this.props;
 
     return (
       <div>
-        <div>
-          <b>{question.optionOne.text}</b>
-        </div>
-        <div>
-          <b>{question.optionTwo.text}</b>
-        </div>
+        <ul>
+          <li onClick={_event => this.handleOptionSelection("optionOne")}>
+            {question.optionOne.text}
+          </li>
+          <li onClick={_event => this.handleOptionSelection("optionTwo")}>
+            {question.optionTwo.text}
+          </li>
+        </ul>
       </div>
     );
   }
 }
 
-export default UnansweredQuestion;
+export default connect()(UnansweredQuestion);

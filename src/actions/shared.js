@@ -1,6 +1,11 @@
-import { getUsers, updateUserQuestions } from "./users";
-import { _getUsers, _getQuestions, _saveQuestion } from "../utils/_DATA";
-import { addQuestion, getQuestions } from "./questions";
+import { getUsers, updateUserQuestions, updateUserAnswers } from "./users";
+import {
+  _getUsers,
+  _getQuestions,
+  _saveQuestion,
+  _saveQuestionAnswer
+} from "../utils/_DATA";
+import { addQuestion, answerQuestion, getQuestions } from "./questions";
 
 export function loadUserData() {
   return dispatch => {
@@ -27,5 +32,15 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
         dispatch(updateUserQuestions(authUser, question.id));
       }
     );
+  };
+}
+
+export function handleAnswerQuestion(qid, answer) {
+  return (dispatch, getState) => {
+    const { authUser } = getState();
+    _saveQuestionAnswer({ authedUser: authUser, qid, answer }).then(() => {
+      dispatch(answerQuestion(authUser, qid, answer));
+      dispatch(updateUserAnswers(authUser, qid, answer));
+    });
   };
 }

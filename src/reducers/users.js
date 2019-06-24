@@ -1,6 +1,12 @@
-import { GET_USERS, UPDATE_USER_QUESTIONS } from "../actions/users";
+import {
+  GET_USERS,
+  UPDATE_USER_ANSWERS,
+  UPDATE_USER_QUESTIONS
+} from "../actions/users";
 
 export default function users(state = null, action) {
+  const { user, qid } = action;
+
   switch (action.type) {
     case GET_USERS:
       return {
@@ -8,13 +14,24 @@ export default function users(state = null, action) {
         ...action.users
       };
     case UPDATE_USER_QUESTIONS:
-      const { user } = action;
+      return {
+        ...state,
+        [user]: {
+          ...state[user],
+          questions: state[user].questions.concat(qid)
+        }
+      };
+    case UPDATE_USER_ANSWERS:
+      const { answer } = action;
 
       return {
         ...state,
         [user]: {
           ...state[user],
-          questions: state[user].questions.concat(action.qid)
+          answers: {
+            ...state[user].answers,
+            [qid]: answer
+          }
         }
       };
     default:

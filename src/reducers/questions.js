@@ -1,7 +1,8 @@
 import {
   GET_QUESTIONS,
   CLEAR_QUESTIONS,
-  ADD_QUESTION
+  ADD_QUESTION,
+  ANSWER_QUESTION
 } from "../actions/questions";
 
 export default function questions(state = null, action) {
@@ -41,6 +42,25 @@ export default function questions(state = null, action) {
           [question.id]: question
         },
         unanswered: state.unanswered.concat(question.id)
+      };
+    case ANSWER_QUESTION:
+      const { qid, answer } = action;
+      const quest = state.allQuestions[qid];
+
+      return {
+        ...state,
+        allQuestions: {
+          ...state.allQuestions,
+          [qid]: {
+            ...quest,
+            [answer]: {
+              ...quest[answer],
+              votes: quest[answer].votes.concat(action.authUser)
+            }
+          }
+        },
+        unanswered: state.unanswered.filter(id => id !== qid),
+        answered: state.answered.concat(qid)
       };
     default:
       return state;

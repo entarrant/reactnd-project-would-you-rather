@@ -27,6 +27,7 @@ class NewQuestion extends Component {
     if (!this.props.authUser) {
       return <Redirect to="/login" />;
     }
+
     if (this.state.questionSubmitted) {
       return <Redirect to="/" />;
     }
