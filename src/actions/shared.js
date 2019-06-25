@@ -6,12 +6,20 @@ import {
   _saveQuestionAnswer
 } from "../utils/_DATA";
 import { addQuestion, answerQuestion, getQuestions } from "./questions";
+import { loginUser } from "./authUser";
 
 export function loadUserData() {
   return dispatch => {
     return Promise.all([_getUsers()]).then(([users]) => {
       dispatch(getUsers(users));
     });
+  };
+}
+
+export function handleLogin(user) {
+  return dispatch => {
+    dispatch(loginUser(user));
+    dispatch(loadQuestionsData(user));
   };
 }
 

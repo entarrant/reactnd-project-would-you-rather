@@ -2,21 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import { loadQuestionsData } from "../actions/shared";
 import QuestionList from "./QuestionList";
 
 class Dashboard extends Component {
   state = {
     displayList: "unanswered"
   };
-
-  componentDidMount() {
-    const { authUser } = this.props;
-
-    if (authUser && !this.props.questionsLoaded) {
-      this.props.dispatch(loadQuestionsData(authUser));
-    }
-  }
 
   toggleQuestions = () => {
     if (this.state.displayList === "unanswered") {
@@ -46,10 +37,9 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps({ authUser, questions }) {
+function mapStateToProps({ authUser }) {
   return {
-    authUser,
-    questionsLoaded: !!questions
+    authUser
   };
 }
 

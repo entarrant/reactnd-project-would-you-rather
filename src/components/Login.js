@@ -2,17 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import { loginUser } from "../actions/authUser";
-import { loadUserData } from "../actions/shared";
+import { handleLogin } from "../actions/shared";
 
 class Login extends Component {
   state = {
     user: ""
   };
-
-  componentDidMount() {
-    this.props.dispatch(loadUserData());
-  }
 
   render() {
     const { authUser, users } = this.props;
@@ -22,7 +17,7 @@ class Login extends Component {
 
     return (
       <div>
-        <form onSubmit={event => this.handleLogin(event)}>
+        <form onSubmit={event => this.handleSubmit(event)}>
           <select onChange={this.handleSelection}>
             <option>{authUser ? authUser.name : ""}</option>
             {users &&
@@ -38,9 +33,9 @@ class Login extends Component {
     );
   }
 
-  handleLogin = event => {
+  handleSubmit = event => {
     event.preventDefault();
-    this.props.dispatch(loginUser(this.state.user));
+    this.props.dispatch(handleLogin(this.state.user));
   };
 
   handleSelection = event => {

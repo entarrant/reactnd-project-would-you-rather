@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import "../App.css";
 
+import { loadUserData } from "../actions/shared";
+
 import Dashboard from "./Dashboard";
 import Login from "./Login";
 import Question from "./Question";
@@ -13,6 +15,12 @@ import NewQuestion from "./NewQuestion";
 import Leaderboard from "./Leaderboard";
 
 class App extends Component {
+  componentDidMount() {
+    if (!this.props.usersLoaded) {
+      this.props.dispatch(loadUserData());
+    }
+  }
+
   render() {
     return (
       <Router>
@@ -35,9 +43,10 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ authUser }) {
+function mapStateToProps({ authUser, questions, users }) {
   return {
-    authUser
+    authUser,
+    usersLoaded: !!users
   };
 }
 
