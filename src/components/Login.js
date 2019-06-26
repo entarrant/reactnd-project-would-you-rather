@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import { handleLogin } from "../actions/shared";
 
@@ -9,11 +10,9 @@ class Login extends Component {
   };
 
   render() {
-    const { authUser, history, users } = this.props;
-
+    const { authUser, users } = this.props;
     if (authUser) {
-      history.goBack();
-      return null;
+      return <Redirect to="/" />;
     }
 
     return (

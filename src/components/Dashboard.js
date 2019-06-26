@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import QuestionList from "./QuestionList";
 
@@ -19,8 +19,7 @@ class Dashboard extends Component {
 
   render() {
     if (!this.props.authUser) {
-      this.props.history.push("/login");
-      return null;
+      return <Redirect to="/login" />;
     }
 
     const { displayList } = this.state;
@@ -44,4 +43,4 @@ function mapStateToProps({ authUser }) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(Dashboard));
+export default connect(mapStateToProps)(Dashboard);
