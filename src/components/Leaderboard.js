@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class Leaderboard extends Component {
   render() {
     if (!this.props.authUser) {
-      return <Redirect to="/login" />;
+      this.props.history.push("/login");
+      return null;
     }
 
     const { users } = this.props;
@@ -43,4 +44,4 @@ function mapStateToProps({ authUser, users }) {
   };
 }
 
-export default connect(mapStateToProps)(Leaderboard);
+export default withRouter(connect(mapStateToProps)(Leaderboard));

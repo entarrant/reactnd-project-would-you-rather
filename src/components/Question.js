@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import AnsweredQuestion from "./AnsweredQuestion";
 import UnansweredQuestion from "./UnansweredQuestion";
@@ -16,7 +16,8 @@ class Question extends Component {
 
   render() {
     if (!this.props.authUser) {
-      return <Redirect to="/login" />;
+      this.props.history.push("/login");
+      return null;
     }
 
     const { qid } = this.props.match.params;
@@ -49,4 +50,4 @@ function mapStateToProps({ authUser, questions, users }) {
   };
 }
 
-export default connect(mapStateToProps)(Question);
+export default withRouter(connect(mapStateToProps)(Question));

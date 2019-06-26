@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { handleAddQuestion } from "../actions/shared";
 
 class NewQuestion extends Component {
@@ -25,7 +25,8 @@ class NewQuestion extends Component {
 
   render() {
     if (!this.props.authUser) {
-      return <Redirect to="/login" />;
+      this.props.history.push("/login");
+      return null;
     }
 
     if (this.state.questionSubmitted) {
@@ -65,4 +66,4 @@ function mapStateToProps({ authUser }) {
   return { authUser };
 }
 
-export default connect(mapStateToProps)(NewQuestion);
+export default withRouter(connect(mapStateToProps)(NewQuestion));
